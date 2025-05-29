@@ -1,9 +1,10 @@
+import React from "react";
 import { fetchWeatherForecast } from "./api/weatherApi";
 import SearchBar from "./components/searchBar";
 import WeatherChart from "./components/weatherChart";
 import { useAppDispatch, useAppSelector } from "./hooks/useRedux";
 
-function App() {
+const App: React.FC = () => {
   const dispatch = useAppDispatch();
   const { data, loading, error, lastSearchedCity } = useAppSelector(
     (state) => state.weather
@@ -31,6 +32,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;

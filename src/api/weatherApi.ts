@@ -24,10 +24,12 @@ export const fetchWeatherForecast = createAsyncThunk<
       params: { q: city, appid: API_KEY, units: "metric" },
     });
 
-    const forecast: WeatherData[] = response.data.list.map((item: any) => ({
-      date: item.dt_txt,
-      maxTemp: item.main.temp_max,
-    }));
+    const forecast: WeatherData[] = response.data.list.map(
+      (item: { dt_txt: string; main: { temp_max: number } }) => ({
+        date: item.dt_txt,
+        maxTemp: item.main.temp_max,
+      })
+    );
 
     return {
       city: response.data.city.name,
