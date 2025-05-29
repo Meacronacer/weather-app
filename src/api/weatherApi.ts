@@ -23,7 +23,16 @@ export const fetchWeatherForecast = createAsyncThunk<
     const response = await axios.get(`${BASE_URL}/forecast`, {
       params: { q: city, appid: API_KEY, units: "metric" },
     });
-    return response.data;
+
+    const forecast: WeatherData[] = response.data.list.map((item: any) => ({
+      date: item.dt_txt,
+      maxTemp: item.main.temp_max,
+    }));
+
+    return {
+      city: response.data.city.name,
+      forecast,
+    };
   } catch (err) {
     const error = err as ApiError;
     const errorMessage =

@@ -6,7 +6,7 @@ export interface WeatherData {
   maxTemp: number;
 }
 
-interface WeatherState {
+export interface WeatherState {
   data: WeatherData[] | null;
   loading: boolean;
   error: string | null;

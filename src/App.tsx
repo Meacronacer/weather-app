@@ -1,9 +1,13 @@
 import { fetchWeatherForecast } from "./api/weatherApi";
 import SearchBar from "./components/searchBar";
-import { useAppDispatch } from "./hooks/useRedux";
+import WeatherChart from "./components/weatherChart";
+import { useAppDispatch, useAppSelector } from "./hooks/useRedux";
 
 function App() {
   const dispatch = useAppDispatch();
+  const { data, loading, error, lastSearchedCity } = useAppSelector(
+    (state) => state.weather
+  );
 
   const handleSearch = (city: string) => {
     dispatch(fetchWeatherForecast(city));
@@ -17,6 +21,13 @@ function App() {
         </h1>
 
         <SearchBar onSearch={handleSearch} />
+
+        <WeatherChart
+          data={data}
+          loading={loading}
+          error={error}
+          lastSearchedCity={lastSearchedCity}
+        />
       </div>
     </div>
   );
