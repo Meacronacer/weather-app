@@ -1,17 +1,25 @@
-import { useState } from "react";
+import { fetchWeatherForecast } from "./api/weatherApi";
 import SearchBar from "./components/searchBar";
+import { useAppDispatch } from "./hooks/useRedux";
 
-export default function App() {
-  const [searchCity, setSearchCity] = useState("");
+function App() {
+  const dispatch = useAppDispatch();
+
+  const handleSearch = (city: string) => {
+    dispatch(fetchWeatherForecast(city));
+  };
+
   return (
-    <main className="flex flex-col items-center h-screen w-full bg-indigo-500">
-      <h1 className="text-3xl font-bold underline text-white/90 mt-10">
-        Weather App!
-      </h1>
+    <div className="min-h-screen bg-gray-50 py-8 px-4">
+      <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 className="text-2xl font-bold text-center mb-6">
+          5-Day Weather Forecast
+        </h1>
 
-      <section className="mt-10">
-        <SearchBar onSearch={setSearchCity} />
-      </section>
-    </main>
+        <SearchBar onSearch={handleSearch} />
+      </div>
+    </div>
   );
 }
+
+export default App;
